@@ -24,9 +24,20 @@ def combine_csvs(csv_paths, out_path):
     combined_df.to_csv(out_path, index=False)
     print(f"Combined {len(csv_paths)} CSVs into {out_path}, total rows: {len(combined_df)}")
 
+def sort_com(combined_csv_path, out_path):
+    """
+    Filter rows in a combined CSV to only those where the 'Url' column contains '.com'.
+    Saves the filtered rows to a new CSV file.
+    """
+    df = pd.read_csv(combined_csv_path)
+    filtered_df = df[df['Url'].str.contains('.com', na=False)]
+    filtered_df.to_csv(out_path, index=False)
+    print(f"Saved {len(filtered_df)} rows containing .com to {out_path}")
+
 
 # Scrape pages and extract tables
 base_url = "https://publicwww.com/websites/zsiqscript"
 scrape_pages(base_url, 1, 21)
 csv_files = [f"data/csv/page_{i}.csv" for i in range(1, 21)]
 combine_csvs(csv_files, "data/data_combined.csv")
+sort_com("data/data_combined.csv", "data/data_combined_sorted.csv")

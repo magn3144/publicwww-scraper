@@ -25,7 +25,15 @@ If you want to access data after page 19 on the site you have to log in.
 ## File Structure
 - `scrape_html.py`: Fetches HTML using Playwright.
 - `extract_table.py`: Extracts table data from HTML and saves as CSV.
-- `main.py`: Orchestrates scraping and extraction for multiple pages.
+- `main.py`: Orchestrates scraping and extraction for multiple pages. Also includes utilities to combine CSVs and filter for .com domains.
+## Filtering for .com domains
+
+After combining CSVs, you can filter the results to only include rows where the URL contains `.com`:
+
+```python
+sort_com("data/data_combined.csv", "data/data_combined_sorted.csv")
+```
+This will save only rows with `.com` in the URL to a new CSV file.
 - `data/html/`: Saved HTML files.
 - `data/csv/`: Saved CSV files.
 
